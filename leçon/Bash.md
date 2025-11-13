@@ -118,4 +118,78 @@ echo "MY_VARIABLE after unsetting: $MY_VARIABLE"
 ```
 
 
+## Transmission des arguments
+
+C'est le fait de passer les arguments lors de l'exécution du script
+
+```
+#!/bin/bash
+
+echo "Script name: $0"
+echo "First argument: $1"
+echo "Second argument: $2"
+echo "Third argument: $3" 
+
+```
+
+Lors de l'exécution on doit entrer donc : `./arguments.sh hello world example`
+La sortie est:
+```
+Script name: ./arguments.sh
+First argument: hello
+Second argument: world
+Third argument: example
+```
+
+Pour aller plus loin
+```
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+echo "No arguments provided."
+elif [ $# -eq 1 ]; then
+echo "One argument provided: $1"
+elif [ $# -eq 2 ]; then
+echo "Two arguments provided: $1 and $2"
+else
+echo "More than two arguments provided:"
+echo "First argument: $1"
+echo "Second argument: $2"
+echo "Third argument: $3"
+echo "Total number of arguments: $#"
+fi
+```
+
+- `$#`: variable spéciale qui contient le nbr d'arguments passés dans le script
+- `[ $# -eq 0 ]`: check si le nbr d'arguments est égal à 0
+- `-eq`: equal to
+- `-lt`: less than
+- `-gt`: greater than
+
+Nous allons modifier notre script pour parcourir touts les arguments passés avec `$@`
+
+```
+#!/bin/bash
+
+echo "Total number of arguments: $#"
+echo "All arguments:"
+count=1
+for arg in "$@"; do
+echo "Argument $count: $arg"
+count=$((count + 1))
+done
+```
+
+`$@`: variable spécial qui contient tout les arguments passés dans le scripts.
+Voici le résultat
+```
+labex:project/ $ ./arguments.sh apple banana cherry date
+Total number of arguments: 4
+All arguments:
+Argument 1: apple
+Argument 2: banana
+Argument 3: cherry
+Argument 4: date
+```
+
 
