@@ -192,4 +192,136 @@ Argument 3: cherry
 Argument 4: date
 ```
 
+## Array
+Pour initialiser des tableaux vides:
+
+```
+#!/bin/bash
+
+# Initialize empty arrays
+NUMBERS=()
+STRINGS=()
+NAMES=()
+```
+
+Pour ajouter des elements :
+
+```
+# Add elements to NUMBERS array
+NUMBERS+=(1)
+NUMBERS+=(2)
+NUMBERS+=(3)
+
+# Add elements to STRINGS array
+STRINGS+=("hello")
+STRINGS+=("world")
+
+# Add elements to NAMES array
+NAMES+=("John")
+NAMES+=("Eric")
+NAMES+=("Jessica")
+```
+
+`+=`: opérateur utilisé pour ajouter un éléments à un tableau
+
+Pour avoir le nombre des éléments dans un tableau:
+
+```
+# Get the number of elements in the NAMES array
+NumberOfNames=${#NAMES[@]}
+```
+
+Accéder à un éléments d'un tableau:
+
+```
+# Access the second name in the NAMES array
+second_name=${NAMES[1]}
+```
+
+Afficher les tableaux et les variables:
+
+```
+# Print the arrays and variables
+echo "NUMBERS array: ${NUMBERS[@]}"
+echo "STRINGS array: ${STRINGS[@]}"
+echo "The number of names listed in the NAMES array: $NumberOfNames"
+echo "The second name on the NAMES list is: $second_name"
+```
+
+### Exo
+
+```
+#!/bin/bash  
+
+# Define arrays for each cargo bay's inventory
+forward_bay=()
+midship_bay=()
+aft_bay=()
+
+# Add elements to forward_bay array
+forward_bay+=("Space Suits")
+forward_bay+=("Oxygen Tanks")
+forward_bay+=("Kits")
+
+# Add elements to midship_bay array
+midship_bay+=("Food Supplies")
+midship_bay+=("Water Containers")
+midship_bay+=("Medical Equipment")
+
+# Add elements to aft_bay array
+aft_bay+=("Spare Parts")
+aft_bay+=("Fuel Cells")
+aft_bay+=("Medical Equipment")
+
+# Check if an argument is provided
+if [ $# -eq 0 ]; then
+echo "Please specify a cargo bay: forward, midship, or aft"
+exit 1
+fi
+  
+# Display inventory based on the argument
+if [ "$1" = "forward" ]; then
+echo "Forward Bay Inventory:"
+echo "1. ${forward_bay[0]}"
+echo "2. ${forward_bay[1]}"
+echo "3. ${forward_bay[2]}"
+
+elif [ "$1" = "midship" ]; then
+echo "Midship Bay Inventory:"
+echo "1. ${midship_bay[0]}"
+echo "2. ${midship_bay[1]}"
+echo "3. ${midship_bay[2]}"
+
+elif [ "$1" = "aft" ]; then
+echo "Aft Bay Inventory:"
+echo "1. ${aft_bay[0]}"
+echo "2. ${aft_bay[1]}"
+echo "3. ${aft_bay[2]}"
+
+else
+echo "Invalid cargo bay. Choose forward, midship, or aft."
+exit 1
+fi
+```
+
+```
+labex:project/ $ ./cargo_manifest.sh 
+Please specify a cargo bay: forward, midship, or aft
+labex:project/ $ ./cargo_manifest.sh forward
+Forward Bay Inventory:
+1. Space Suits
+2. Oxygen Tanks
+3. Kits
+labex:project/ $ ./cargo_manifest.sh midship
+Midship Bay Inventory:
+4. Food Supplies
+5. Water Containers
+6. Medical Equipment
+labex:project/ $ ./cargo_manifest.sh aft    
+Aft Bay Inventory:
+7. Spare Parts
+8. Fuel Cells
+9. Medical Equipment
+labex:project/ $ 
+```
 
