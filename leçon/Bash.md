@@ -325,3 +325,114 @@ Aft Bay Inventory:
 labex:project/ $ 
 ```
 
+
+## Travailler avec les strings
+
+| Operation                | Syntax                            | Description                                               | Example                                  |
+| ------------------------ | --------------------------------- | --------------------------------------------------------- | ---------------------------------------- |
+| String Length            | `${#string}`                      | Calculates the number of characters in a string           | `${#"hello"}` returns `5`                |
+| Find Character Position  | `$(expr index "$string" "$char")` | Finds the position of a character in a string (1-indexed) | `$(expr index "abcdef" "c")` returns `3` |
+| Extract Substring        | `${string:start:length}`          | Extracts a portion of a string (0-indexed)                | `${"hello":1:3}` returns `ell`           |
+| Replace First Occurrence | `${string/pattern/replacement}`   | Replaces the first occurrence of a pattern                | `${"hello"/l/L}` returns `heLlo`         |
+| Replace All Occurrences  | `${string//pattern/replacement}`  | Replaces all occurrences of a pattern                     | `${"hello"//l/L}` returns `heLLo`        |
+| Replace at Beginning     | `${string/#pattern/replacement}`  | Replaces pattern only if at beginning of string           | `${"hello"/#he/HE}` returns `HEllo`      |
+| Replace at End           | `${string/%pattern/replacement}`  | Replaces pattern only if at end of string                 | `${"hello"/%lo/LO}` returns `helLO`      |
+
+
+## Boolean en bash
+
+Le bash n'a pas de variable de type boolean native. Par contre on peut utiliser **strings** ou **integer** pour représenter les valeurs booleans.
+
+- **Utilisation integer**
+```
+#!/bin/bash  
+
+# Example using integers
+if (( 0 )); then
+    echo 'This will not be executed'
+else
+    echo '0 is considered false, so this will be executed'
+fi
+if (( 1 )); then
+    echo '1 is considered true, so this will be executed'
+else
+    echo 'This will not be executed'
+fi
+
+```
+
+- **Utilisation strings**
+
+```
+#!/bin/bash 
+# Example using strings
+var1=''
+var2='Hello'
+if [ -n '$var1' ]; then
+    echo 'var1 is not empty, so this will not be executed'
+else
+    echo 'var1 is empty, so this will be executed'
+fi
+if [ -n '$var2' ]; then
+    echo 'var2 is not empty, so this will be executed'
+else
+    echo 'This will not be executed'
+fi
+
+```
+
+## Opérateurs et structure de contrôles
+
+Le syntaxe basique d'un "**if**" est :
+
+```
+bash
+if [ condition ]; then
+  # code to be executed if condition is true
+fi
+```
+
+Voici un script qui check si un fichier existe:
+
+```
+#!/bin/bash
+
+FILE="example.txt"
+
+# Test si le fichier existe
+if [ -f "$FILE" ]; then
+    echo "The file '$FILE' exists"
+else
+    echo "The file '$FILE' does not exist"
+fi
+```
+
+Utilisation de `elif`
+
+```
+#!/bin/bash
+
+NUM="$1"
+
+if [ "$NUM" -eq 0 ]; then
+    echo "The number is zero"
+elif [ "$NUM" -lt 0 ]; then
+    echo "The number is negative"
+else
+    echo "The number is positive"
+fi
+```
+
+- **Utiles**
+	`[ -f '$FILE' ]`: Check if a file exists
+	`[ -d '$DIR' ]`: Check if a directory exists
+	`[ $NUM -eq 0 ]`: Check if a number is equal to zero
+	`[ $NUM -lt 0 ]`: Check if a number is less than zero
+	`[ $NUM -gt 0 ]`: Check if a number is greater than zero
+	`[ '$STRING' = 'hello' ]`: Check if a string is equal to 'hello'
+	`[ -z '$STRING' ]`: Check if a string is empty
+
+
+
+
+
